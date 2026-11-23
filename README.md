@@ -28,3 +28,4 @@ Los modelos Eloquent están en `app/Models`, los controladores en `app/Http/Cont
 
 Las migraciones crean usuarios, registros de acceso, categorías, movimientos, presupuestos, metas y abonos. El tipo de un movimiento proviene de su categoría. Los importes se guardan en centavos enteros. La base aplica llaves foráneas, índices de consulta y una restricción de unicidad para cada presupuesto por usuario, moneda, categoría y mes. Las fechas y horas se muestran en la zona `America/Mexico_City`.
 # Finanzas
+# Finanzas
