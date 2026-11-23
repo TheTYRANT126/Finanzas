@@ -1,0 +1,5 @@
+Options -Indexes
+RewriteEngine On
+# Permite el acceso por localhost/Finanzas/public en Laragon y bloquea la raíz privada.
+RewriteRule ^$ public/ [R=302,L]
+RewriteRule !^public(?:/|$) - [F,L]
