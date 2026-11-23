@@ -27,3 +27,4 @@ Con `php artisan serve`, abre [http://127.0.0.1:8000/](http://127.0.0.1:8000/). 
 Los modelos Eloquent están en `app/Models`, los controladores en `app/Http/Controllers`, las reglas de validación en `app/Http/Requests` y las vistas Blade en `resources/views`. El cálculo de reportes vive en `App\Services\FinancialSummary`. Las consultas parten de la cuenta autenticada y una política de Laravel controla el acceso directo a cada registro.
 
 Las migraciones crean usuarios, registros de acceso, categorías, movimientos, presupuestos, metas y abonos. El tipo de un movimiento proviene de su categoría. Los importes se guardan en centavos enteros. La base aplica llaves foráneas, índices de consulta y una restricción de unicidad para cada presupuesto por usuario, moneda, categoría y mes. Las fechas y horas se muestran en la zona `America/Mexico_City`.
+# Finanzas
