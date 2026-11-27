@@ -27,6 +27,7 @@ Route::middleware(['auth', 'auth.session'])->group(function () {
     Route::get('/reportes', ReportController::class)->name('reports');
     Route::get('/perfil', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/perfil', [ProfileController::class, 'update'])->name('profile.update');
+    Route::patch('/perfil/moneda', [ProfileController::class, 'currency'])->name('profile.currency');
     Route::patch('/perfil/contrasena', [ProfileController::class, 'password'])->name('profile.password');
     Route::delete('/perfil', [ProfileController::class, 'destroy'])->name('profile.destroy');
 

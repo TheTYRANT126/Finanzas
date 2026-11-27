@@ -50,6 +50,31 @@ class ProfileController
         return back()->with('status', 'Perfil actualizado.');
     }
 
+    public function currency(Request $request): RedirectResponse
+    {
+        $data = $request->validate([
+            'currency' => ['required', Rule::in(array_keys(Money::CURRENCIES))],
+            'month' => ['nullable', 'date_format:Y-m'],
+        ]);
+
+        $route = match ($request->input('section')) {
+            'transactions' => 'transactions.index',
+            'budgets' => 'budgets.index',
+            'goals' => 'goals.index',
+            'reports' => 'reports',
+            'profile' => 'profile.edit',
+            default => 'dashboard',
+        };
+
+        $request->user()->update(['currency' => $data['currency']]);
+
+        $parameters = isset($data['month']) && in_array($route, ['dashboard', 'budgets.index', 'reports'], true)
+            ? ['month' => $data['month']]
+            : [];
+
+        return redirect()->route($route, $parameters)->with('status', 'Moneda cambiada a '.$data['currency'].'.');
+    }
+
     public function password(Request $request): RedirectResponse
     {
         $data = $request->validateWithBag('password', [

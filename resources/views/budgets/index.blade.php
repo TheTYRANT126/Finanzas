@@ -15,7 +15,7 @@
     @else
         <div class="record-grid">
             @foreach($budgets as $budget)
-                <div class="panel"><x-budget-progress :budget="$budget" :spent="$spending[$budget->category_id] ?? 0" full /></div>
+                <div class="panel"><x-budget-progress :budget="$budget" full /></div>
             @endforeach
         </div>
     @endif

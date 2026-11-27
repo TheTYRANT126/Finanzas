@@ -14,7 +14,7 @@
                 <a class="text-link" href="{{ route('budgets.index', ['month' => $month->format('Y-m')]) }}">Ver presupuestos</a>
             </div>
             @forelse($budgets as $budget)
-                <x-budget-progress :budget="$budget" :spent="$totals['categories']->firstWhere('id', $budget->category_id)['total'] ?? 0" />
+                <x-budget-progress :budget="$budget" />
             @empty
                 <x-empty title="Sin límites para este mes" icon="▤">
                     <a class="text-link" href="{{ route('budgets.create', ['month' => $month->format('Y-m')]) }}">Crear presupuesto</a>

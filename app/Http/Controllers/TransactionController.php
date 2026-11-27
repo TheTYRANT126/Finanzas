@@ -38,6 +38,7 @@ class TransactionController
         $search = $filters['q'] ?? '';
         if ($search !== '') {
             $transactions->where(fn (Builder $query) => $query->where('notes', 'like', '%'.$search.'%')
+                ->orWhere('category_detail', 'like', '%'.$search.'%')
                 ->orWhereHas('category', fn ($category) => $category->where('name', 'like', '%'.$search.'%')));
         }
 

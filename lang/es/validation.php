@@ -36,6 +36,7 @@ return [
     'attributes' => [
         'amount' => 'monto',
         'category_id' => 'categoría',
+        'category_detail' => 'detalle de la categoría',
         'confirm_delete' => 'la eliminación',
         'contributed_on' => 'fecha del abono',
         'currency' => 'moneda',

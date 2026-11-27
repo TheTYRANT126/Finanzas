@@ -82,7 +82,18 @@ class FinancialSummary
 
     public function budgets(User $user, CarbonImmutable $month): Collection
     {
+        $spending = $user->transactions()
+            ->whereColumn('transactions.category_id', 'budgets.category_id')
+            ->where('transactions.currency', $user->currency)
+            ->where('transactions.occurred_at', '>=', $month)
+            ->where('transactions.occurred_at', '<', $month->addMonth())
+            ->where(fn ($query) => $query->whereNull('budgets.category_detail')
+                ->orWhereRaw('LOWER(transactions.category_detail) = LOWER(budgets.category_detail)'))
+            ->selectRaw('COALESCE(SUM(transactions.amount_cents), 0)');
+
         return $user->budgets()->where('currency', $user->currency)
-            ->where('month', $month->toDateString())->with('category')->orderBy('id')->get();
+            ->where('month', $month->toDateString())
+            ->addSelect(['spent_cents' => $spending->getQuery()])
+            ->with('category')->orderBy('id')->get();
     }
 }

@@ -9,11 +9,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Budget extends Model
 {
-    protected $fillable = ['category_id', 'currency', 'month', 'limit_cents'];
+    protected $fillable = ['category_id', 'category_detail', 'currency', 'month', 'limit_cents'];
 
     protected function casts(): array
     {
-        return ['month' => 'date', 'limit_cents' => 'integer'];
+        return ['month' => 'date', 'limit_cents' => 'integer', 'spent_cents' => 'integer'];
     }
 
     protected function month(): Attribute

@@ -22,7 +22,6 @@ class BudgetController
         return view('budgets.index', [
             'month' => $month,
             'budgets' => $summary->budgets($user, $month),
-            'spending' => $summary->totals($user, $month)['categories']->pluck('total', 'id'),
         ]);
     }
 

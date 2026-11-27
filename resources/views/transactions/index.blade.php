@@ -13,7 +13,7 @@
             </div>
         @endif
         <form class="filter-grid" method="get" action="{{ route('transactions.index') }}">
-            <div class="field"><label for="q">Buscar</label><input type="search" name="q" id="q" maxlength="100" placeholder="Categoría o notas" value="{{ $filters['q'] ?? '' }}"></div>
+            <div class="field"><label for="q">Buscar</label><input type="search" name="q" id="q" maxlength="100" placeholder="Categoría, detalle o notas" value="{{ $filters['q'] ?? '' }}"></div>
             <div class="field"><label for="filter-type">Tipo</label>
                 <select id="filter-type" name="type">
                     <option value="">Todos</option>

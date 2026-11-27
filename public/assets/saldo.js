@@ -1,24 +1,17 @@
 "use strict";
 
-const root = document.documentElement;
-const colorPreference = window.matchMedia('(prefers-color-scheme: dark)');
-
-document.querySelectorAll('[data-theme-toggle]').forEach(button => {
-    const refresh = () => {
-        const dark = root.dataset.theme === 'dark' || (!root.dataset.theme && colorPreference.matches);
-        button.setAttribute('aria-label', dark ? 'Activar tema claro' : 'Activar tema oscuro');
-        button.title = button.getAttribute('aria-label');
-    };
-
-    refresh();
-    colorPreference.addEventListener('change', refresh);
-    button.addEventListener('click', () => {
-        root.dataset.theme = getComputedStyle(root).colorScheme.includes('dark') ? 'light' : 'dark';
-        try { localStorage.setItem('saldo-theme', root.dataset.theme); } catch {}
-        refresh();
-        window.dispatchEvent(new Event('saldo-theme-change'));
+const currencyMenu = document.querySelector('.currency-menu');
+if (currencyMenu) {
+    document.addEventListener('pointerdown', event => {
+        if (currencyMenu.open && !currencyMenu.contains(event.target)) currencyMenu.open = false;
     });
-});
+    currencyMenu.addEventListener('keydown', event => {
+        if (event.key !== 'Escape' || !currencyMenu.open) return;
+        event.stopPropagation();
+        currencyMenu.open = false;
+        currencyMenu.querySelector('summary').focus();
+    });
+}
 
 const menu = document.querySelector('[data-menu]');
 if (menu) {
@@ -54,17 +47,30 @@ document.querySelectorAll('form[data-confirm]').forEach(form => {
 document.querySelectorAll('[data-category-form]').forEach(form => {
     const type = form.querySelector('[data-category-type]');
     const categories = form.querySelector('[data-category-list]');
-    const groups = [...categories.querySelectorAll('optgroup')];
-    const sync = () => {
-        const selected = categories.value;
-        groups.forEach(group => group.remove());
-        const options = groups.find(group => group.dataset.type === type.value);
-        if (options) categories.append(options);
-        categories.value = selected;
-        if (!categories.value) categories.selectedIndex = 0;
+    const detail = form.querySelector('[data-category-detail]');
+    const detailInput = detail.querySelector('input');
+    const syncDetail = () => {
+        const show = categories.selectedOptions[0]?.hasAttribute('data-custom-category') ?? false;
+        detail.hidden = !show;
+        detailInput.disabled = !show;
     };
-    type.addEventListener('change', sync);
-    sync();
+    if (type) {
+        const groups = [...categories.querySelectorAll('optgroup')];
+        const syncType = () => {
+            const selected = categories.value;
+            groups.forEach(group => group.remove());
+            const options = groups.find(group => group.dataset.type === type.value);
+            if (options) categories.append(options);
+            categories.value = selected;
+            if (!categories.value) categories.selectedIndex = 0;
+            syncDetail();
+        };
+        type.addEventListener('change', syncType);
+        syncType();
+    } else {
+        syncDetail();
+    }
+    categories.addEventListener('change', syncDetail);
 });
 
 document.querySelectorAll('[data-period]').forEach(form => {
@@ -200,7 +206,5 @@ document.querySelectorAll('canvas[data-flow]').forEach(canvas => {
 
     if ('ResizeObserver' in window) new ResizeObserver(render).observe(canvas);
     else window.addEventListener('resize', render);
-    colorPreference.addEventListener('change', render);
-    window.addEventListener('saldo-theme-change', render);
     render();
 });

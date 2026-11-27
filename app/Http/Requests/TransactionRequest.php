@@ -15,6 +15,7 @@ class TransactionRequest extends FormRequest
             'type' => ['required', Rule::in(array_keys(Category::TYPES))],
             'category_id' => ['required', 'integer', Rule::exists('categories', 'id')
                 ->where('type', is_string($this->input('type')) ? $this->input('type') : '')],
+            'category_detail' => ['nullable', 'string', 'max:'.Category::DETAIL_MAX_LENGTH],
             'amount' => Money::RULES,
             'occurred_at' => ['required', 'date_format:Y-m-d\TH:i', 'after_or_equal:1900-01-01', 'before:2100-01-01'],
             'notes' => ['nullable', 'string', 'max:500'],
@@ -26,6 +27,7 @@ class TransactionRequest extends FormRequest
     {
         return [
             ...$this->safe()->only(['category_id', 'occurred_at', 'notes']),
+            'category_detail' => Category::detailFor($this->validated('category_id'), $this->validated('category_detail')),
             'amount_cents' => Money::cents($this->validated('amount')),
         ];
     }

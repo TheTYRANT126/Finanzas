@@ -27,12 +27,13 @@
                         @foreach($categories->groupBy('type') as $type => $options)
                             <optgroup data-type="{{ $type }}" label="{{ \App\Models\Category::TYPES[$type] }}">
                                 @foreach($options as $category)
-                                    <option value="{{ $category->id }}" @selected(old('category_id', $transaction->category_id) == $category->id)>{{ $category->name }}</option>
+                                    <option value="{{ $category->id }}" @selected(old('category_id', $transaction->category_id) == $category->id) @if($category->allowsCustomDetail()) data-custom-category @endif>{{ $category->name }}</option>
                                 @endforeach
                             </optgroup>
                         @endforeach
                     </select>
                 </div>
+                <x-category-detail :value="$transaction->category_detail" placeholder="Ej. Regalos o venta de segunda mano" />
                 <div class="field"><label for="amount">Monto <small>{{ auth()->user()->currency }}</small></label>
                     <input id="amount" name="amount" type="number" inputmode="decimal" step="0.01" min="0.01" max="99999999.99" value="{{ old('amount', \App\Services\Money::input($transaction->amount_cents)) }}" required>
                 </div>

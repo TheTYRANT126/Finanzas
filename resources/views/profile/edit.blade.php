@@ -21,7 +21,7 @@
                         <option value="{{ $code }}" @selected(old('currency', $user->currency) === $code)>{{ $code }} · {{ $name }}</option>
                     @endforeach
                 </select>
-                <p class="field-help" id="currency-help">Cada moneda tiene sus propios movimientos, presupuestos y metas. Puedes alternar entre ellas desde aquí.</p>
+                <p class="field-help" id="currency-help">Cada moneda tiene sus propios movimientos, presupuestos y metas. También puedes cambiarla desde la barra superior.</p>
                 <button type="submit" class="button primary">Guardar perfil</button>
             </form>
         </section>

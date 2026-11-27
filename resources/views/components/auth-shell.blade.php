@@ -2,7 +2,7 @@
 <main class="auth-page">
     <section class="auth-art">
         <a href="{{ route('login') }}" class="brand">
-            <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+            <img class="brand-mark" src="{{ asset('favicon.ico') }}" width="39" height="39" alt="">
             <span>Saldo<small>Finanzas personales</small></span>
         </a>
         <div class="auth-intro">
@@ -10,12 +10,10 @@
             <p>Organiza tus ingresos y gastos, planifica cada mes y sigue el avance de tus metas.</p>
         </div>
         <div class="auth-graphic" aria-hidden="true">
-            <div class="art-line"></div>
-            <div class="art-bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            <canvas data-auth-threads></canvas>
         </div>
     </section>
     <section class="auth-body">
-        <div class="auth-tools"><x-theme-button /></div>
         <div class="auth-inner">
             <h1>{{ $title }}</h1>
             <p class="muted">{{ $description }}</p>
@@ -25,3 +23,4 @@
         </div>
     </section>
 </main>
+<script src="{{ asset('assets/auth-threads.js') }}" defer></script>
