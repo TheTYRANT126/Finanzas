@@ -267,15 +267,30 @@ select {
 .auth-page { min-height: 100vh; display: grid; grid-template-columns: minmax(325px, 0.96fr) minmax(400px, 1.04fr); background: var(--surface); }
 .auth-art {
     isolation: isolate; position: relative; overflow: hidden; min-height: 100%; padding: clamp(2rem, 5vw, 5.4rem);
-    display: flex; flex-direction: column; align-items: start; gap: clamp(2.75rem, 8vh, 5.75rem);
+    display: grid; place-items: center;
     background: radial-gradient(ellipse at 71% 75%, #f2c2ae19, transparent 55%),
         radial-gradient(ellipse at 8% 89%, #477a69 0%, transparent 65%), #21463e;
     color: #fff;
 }
-.auth-art .brand small, .auth-intro > p + p { color: #d4e7df; }
-.auth-art .brand, .auth-intro { position: relative; z-index: 1; }
-.auth-headline { font-size: clamp(2.6rem, 5.3vw, 5.1rem); font-weight: 720; line-height: 1.01; letter-spacing: -.065em; }
-.auth-intro > p + p { max-width: 33ch; margin-top: .95rem; }
+.auth-identity {
+    position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center;
+    gap: clamp(2rem, 5vh, 3.5rem); text-align: center;
+}
+.auth-art .brand {
+    display: flex; flex-direction: column; align-items: center; gap: 1rem;
+    font-size: clamp(3.25rem, 5vw, 5rem); line-height: .96;
+}
+.auth-art .brand-mark {
+    flex: 0 0 auto; width: clamp(112px, 12vw, 160px); height: clamp(112px, 12vw, 160px);
+}
+.auth-art .brand small {
+    margin-top: .7rem; color: #d4e7df; font-size: clamp(1rem, 1.4vw, 1.25rem);
+    line-height: 1.2; letter-spacing: .02em;
+}
+.auth-headline {
+    font-size: clamp(1.3rem, 2vw, 1.75rem); font-weight: 600; line-height: 1.25;
+    letter-spacing: -.025em; color: #ecf5f0;
+}
 .auth-graphic { position: absolute; inset: 32% 0 0; }
 .auth-graphic::after, .auth-graphic canvas {
     position: absolute; inset: 0; width: 100%; height: 100%;
@@ -320,14 +335,16 @@ select {
     .topbar { position: sticky; top: 0; z-index: 5; height: 62px; }
     .menu-toggle { display: inline-flex; }
     .auth-page { display: block; }
-    .auth-art { min-height: auto; gap: 1.25rem; padding: 1.1rem 1.3rem 1.55rem; }
+    .auth-art { min-height: 0; padding: 2rem 1.3rem 2.25rem; }
+    .auth-identity { gap: 1.35rem; }
+    .auth-art .brand { gap: .65rem; font-size: 3rem; }
+    .auth-art .brand-mark { width: 92px; height: 92px; }
+    .auth-art .brand small { margin-top: .4rem; font-size: .95rem; }
     .auth-graphic {
         inset: 8% 0 0; opacity: .42; pointer-events: none;
         mask-image: linear-gradient(108deg, transparent 14%, #000 68%);
     }
-    .auth-headline { font-size: 2rem; }
-    .auth-headline br { display: none; }
-    .auth-intro > p + p { margin-top: .35rem; }
+    .auth-headline { font-size: 1.2rem; }
     .auth-body { padding-top: 2rem; }
 }
 @media (max-width: 540px) {

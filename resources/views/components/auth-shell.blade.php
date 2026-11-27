@@ -1,13 +1,12 @@
 @props(['title', 'description'])
 <main class="auth-page">
     <section class="auth-art">
-        <a href="{{ route('login') }}" class="brand">
-            <img class="brand-mark" src="{{ asset('favicon.ico') }}" width="39" height="39" alt="">
-            <span>Saldo<small>Finanzas personales</small></span>
-        </a>
-        <div class="auth-intro">
-            <p class="auth-headline">Tus finanzas,<br>en perspectiva.</p>
-            <p>Organiza tus ingresos y gastos, planifica cada mes y sigue el avance de tus metas.</p>
+        <div class="auth-identity">
+            <a href="{{ route('login') }}" class="brand">
+                <img class="brand-mark" src="{{ asset('favicon.ico') }}" width="128" height="128" alt="">
+                <span>Saldo<small>Finanzas personales</small></span>
+            </a>
+            <p class="auth-headline">Organiza tus finanzas</p>
         </div>
         <div class="auth-graphic" aria-hidden="true">
             <canvas data-auth-threads></canvas>
